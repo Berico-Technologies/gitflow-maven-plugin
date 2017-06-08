@@ -52,6 +52,14 @@ public class GitFlowHotfixFinishMojo extends AbstractGitFlowMojo {
     @Parameter(property = "skipTestProject", defaultValue = "false")
     private boolean skipTestProject = false;
 
+    /**
+     * Whether to use <code>--allow-empty</code> option when merging.
+     * 
+     * @since 1.5.1
+     */
+    @Parameter(property = "hotfixMergeAllowEmpty", defaultValue = "false")
+    private boolean hotfixMergeAllowEmpty = false;
+
     /** {@inheritDoc} */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -195,7 +203,7 @@ public class GitFlowHotfixFinishMojo extends AbstractGitFlowMojo {
                     mvnSetVersions(nextSnapshotVersion);
 
                     // git commit -a -m updating for next development version
-                    gitCommit(commitMessages.getHotfixFinishMessage());
+                    gitCommit(commitMessages.getHotfixFinishMessage(), hotfixMergeAllowEmpty);
                 }
             }
 

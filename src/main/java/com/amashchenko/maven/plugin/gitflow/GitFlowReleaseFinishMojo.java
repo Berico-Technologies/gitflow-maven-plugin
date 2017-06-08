@@ -73,6 +73,14 @@ public class GitFlowReleaseFinishMojo extends AbstractGitFlowMojo {
     @Parameter(property = "releaseMergeFFOnly", defaultValue = "false")
     private boolean releaseMergeFFOnly = false;
 
+    /**
+     * Whether to use <code>--allow-empty</code> option when merging.
+     * 
+     * @since 1.5.1
+     */
+    @Parameter(property = "releaseMergeAllowEmpty", defaultValue = "false")
+    private boolean releaseMergeAllowEmpty = false;
+
     /** {@inheritDoc} */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -166,7 +174,7 @@ public class GitFlowReleaseFinishMojo extends AbstractGitFlowMojo {
             mvnSetVersions(nextSnapshotVersion);
 
             // git commit -a -m updating for next development version
-            gitCommit(commitMessages.getReleaseFinishMessage());
+            gitCommit(commitMessages.getReleaseFinishMessage(), releaseMergeAllowEmpty);
 
             if (installProject) {
                 // mvn clean install

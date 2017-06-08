@@ -480,6 +480,24 @@ public abstract class AbstractGitFlowMojo extends AbstractMojo {
     }
 
     /**
+     * Executes git commit -a -m.
+     * 
+     * @param message
+     *            Commit message.
+     * @throws MojoFailureException
+     * @throws CommandLineException
+     */
+    protected void gitCommit(final String message, boolean allowEmpty) throws MojoFailureException,
+            CommandLineException {
+        getLog().info("Committing changes.");
+
+	if (allowEmpty)
+            executeGitCommand("commit", "-a", "-m", message, "--allow-empty");
+	else
+            executeGitCommand("commit", "-a", "-m", message);
+    }
+
+    /**
      * Executes git rebase or git merge --no-ff or git merge.
      * 
      * @param branchName
