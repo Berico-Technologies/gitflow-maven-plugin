@@ -54,12 +54,12 @@
 
     <distributionManagement>
         <repository>
-            <id>sonatype-nexus-staging</id>
+            <id>localnexus-releases</id>
             <name>Nexus Release Repository</name>
             <url>http://nexus.bericotechnologies.com/content/repositories/imc-releases</url>
         </repository>
         <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
+            <id>localnexus-snapshots</id>
             <name>Sonatype Nexus Snapshots</name>
             <url>http://nexus.bericotechnologies.com/content/repositories/imc-snapshots</url>
         </snapshotRepository>
