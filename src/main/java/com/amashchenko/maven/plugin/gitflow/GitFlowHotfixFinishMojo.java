@@ -52,7 +52,7 @@ public class GitFlowHotfixFinishMojo extends AbstractGitFlowMojo {
     @Parameter(property = "skipTestProject", defaultValue = "false")
     private boolean skipTestProject = false;
 
-    /*
+    /**
      * Whether to push to the remote.
      * 
      * @since 1.3.0
