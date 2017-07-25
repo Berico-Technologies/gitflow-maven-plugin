@@ -49,6 +49,14 @@ public class GitFlowFeatureStartMojo extends AbstractGitFlowMojo {
     @Parameter
     private String featureNamePattern;
 
+    /**
+     * Whether to push to the remote.
+     * 
+     * @since 1.6.0
+     */
+    @Parameter(property = "pushRemote", defaultValue = "false")
+    private boolean pushRemote;
+
     /** {@inheritDoc} */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -123,6 +131,11 @@ public class GitFlowFeatureStartMojo extends AbstractGitFlowMojo {
             if (installProject) {
                 // mvn clean install
                 mvnCleanInstall();
+            }
+
+            if (pushRemote) {
+                gitPush(gitFlowConfig.getFeatureBranchPrefix() + featureName,
+                        false);
             }
         } catch (CommandLineException e) {
             getLog().error(e);

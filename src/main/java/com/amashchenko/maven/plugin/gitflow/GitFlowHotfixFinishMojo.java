@@ -52,6 +52,14 @@ public class GitFlowHotfixFinishMojo extends AbstractGitFlowMojo {
     @Parameter(property = "skipTestProject", defaultValue = "false")
     private boolean skipTestProject = false;
 
+    /*
+     * Whether to push to the remote.
+     * 
+     * @since 1.3.0
+     */
+    @Parameter(property = "pushRemote", defaultValue = "true")
+    private boolean pushRemote;
+
     /**
      * Whether to use <code>--allow-empty</code> option when merging.
      * 
@@ -122,6 +130,8 @@ public class GitFlowHotfixFinishMojo extends AbstractGitFlowMojo {
 
             // fetch and check remote
             if (fetchRemote) {
+                gitFetchRemoteAndCompare(hotfixBranchName);
+
                 if (supportBranchName != null) {
                     gitFetchRemoteAndCompare(supportBranchName);
                 } else {
@@ -228,6 +238,10 @@ public class GitFlowHotfixFinishMojo extends AbstractGitFlowMojo {
                             && notSameProdDevName()) {
                         gitPush(gitFlowConfig.getDevelopmentBranch(), !skipTag);
                     }
+                }
+
+                if (!keepBranch) {
+                    gitPushDelete(hotfixBranchName);
                 }
             }
         } catch (CommandLineException e) {
